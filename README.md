@@ -1,8 +1,13 @@
 1.criteria.py: codes for the evaluation criteria
+
 2.generated_data.py: codes for generating simulation data.
+
 3.LWGAL.py: codes for the proposed approach (LWGAL).
-4.relation.py: codes for the calculation of relationship matrix across datasets
+
+4.relation.py: codes for the calculation of relationship matrix across datasets.
+
 5.sim.py: codes for simulation studies under various scenarios.
+
 6.util.py: codes for some basic functions and alternatives
 
 note : Running "sim.py" to get the simulation result (under the default settings, the result of Scenario 2 will be obtained),
