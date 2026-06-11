@@ -8,8 +8,6 @@ Created on 2025/9/15 10:07
 
 import numpy as np
 import pandas as pd
-from sksurv.ensemble import RandomSurvivalForest
-import deepsurv
 from sklearn.linear_model import LassoCV, RidgeCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -217,54 +215,6 @@ def GWAL(X, y, aerfa, threshold):
     beta = estimator.fit(X_Lasso, y_Lasso, sample_weight=w)
     beta.coef_[abs(beta.coef_) < threshold] = 0
     return beta.coef_, beta.intercept_
-
-def RSF(X, y):
-    """
-    (5) The implementation of the Random Survival Forest method.
-
-    Parameter
-    ----------------
-    X : ndarray of shape (n_m_samples, n_features + 1 (dataset label))
-        Data.
-
-    y : ndarray of shape (n_m_samples, 2 (survival time, event indicator))
-        Target.
-
-    Returns
-    ---------------
-    :returns: the fitted RSF model.
-    """
-    rsf = RandomSurvivalForest(
-        n_estimators=1000, min_samples_split=10, min_samples_leaf=15, n_jobs=-1, random_state=42
-    )
-    # List of tuples
-    aux = [(e1, e2) for e1, e2 in y]
-    # Structured array
-    y = np.array(aux, dtype=[('Status', '?'), ('Survival_in_days', '<f8')])
-    rsf.fit(X, y)
-    return rsf
-
-
-def DS(X, y):
-    """
-    (6) The implementation of the Deep survival method method.
-
-    Parameter
-    ----------------
-    X : ndarray of shape (n_m_samples, n_features + 1 (dataset label))
-        Data.
-
-    y : ndarray of shape (n_m_samples, 2 (survival time, event indicator))
-        Target.
-
-    Returns
-    ---------------
-    :returns: the fitted DS model.
-    """
-    train_data = {'x': X.astype('float32'), 't': y[:, 1].astype('float32'), 'e': y[:, 0].astype('int32')}
-    network = deepsurv.DeepSurv(n_in=X.shape[1], learning_rate=1e-3)
-    network.train(train_data=train_data, n_epochs=500, verbose=False)
-    return network
 
 def normlized_data(data):
     """
