@@ -75,7 +75,7 @@ def parallel_training(hyperparam_index, lamda, bw, distance_matrix, dataset):
 
 
 ''' Simulation Settings (the default setting is Scenario 2) '''
-pc, pg, indp = 5, 45, 20  # number of clinical data (important), gene data [495, 995], and important genes
+pc, pg, indp = 5, 495, 20  # number of clinical data (important), gene data [495, 995], and important genes
 n, ns = 300, 60  # average sample size for each dataset and SD
 wm, sm = 3, 2  # number of weak signal datasets and strong signal datasets [10, 10]
 low_signal_a, low_signal_b, high_signal_a, high_signal_b = 0.03, 0.04, 0.11, 0.12  # the bound of the uniform distribution of two signal level
@@ -84,7 +84,7 @@ relationship_structure = 'R2'  # the structure of relationship matrix: ['R1', 'R
 correlation_structure = 'auto-regressive'  # the structure of correlation: ['auto-regressive', 'banded']
 alpha, theta = 0.5, 0.3    # adjustment of the correlation matrix
 n_fold = 5  # cross_validation folds
-repeat_number, effective_repeat = 500, 5  # random partition frequency, effective repetition
+repeat_number, effective_repeat = 500, 100  # random partition frequency, effective repetition
 ''''''''''''''''''''
 
 
@@ -127,7 +127,7 @@ for random_state in range(repeat_number):
         datasets = data['dataset'].value_counts()  # the number of datasets and their sample size
         distance_matrix = 1 - np.array(relationship_matrix)
         b_min, b_max = np.min(distance_matrix), np.max(distance_matrix)
-        bw = np.linspace(b_min - 0.01, b_max - theta, 1)  # give the bandwidth range
+        bw = np.linspace(b_min - 0.01, b_max - theta, 5)  # give the bandwidth range
         lamda = np.linspace(0.1, 5, 10)  # after the initial screening of np.linspace(0.001, 20, 20)
 
         cindex_par = np.zeros([2, len(lamda) * len(bw)])
