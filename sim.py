@@ -138,7 +138,7 @@ for random_state in range(repeat_number):
         model_ls = []
         param_range = {'lamda': range(len(lamda)), 'bw': range(len(bw))}
         param_grid = ParameterGrid(param_range)
-        with Parallel(n_jobs=1) as parallel:
+        with Parallel(n_jobs=20) as parallel:
            model_ls = parallel(delayed(parallel_training)
                            (hyperparam_index, lamda, bw, distance_matrix,
                             dataset) for hyperparam_index in enumerate(param_grid))
