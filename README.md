@@ -16,7 +16,9 @@ This repository hosts the code for LWGAL.
 
 # Using LWGAL
 
-Running "sim.py" to get the simulation result (The current setting is Scenario 2), but three folders ("estimated_coef", "evaluation_result", "simulation_data") need to create in advance to store the results, where
+Running "sim.py" to start the simulation (The current setting is Scenario 2).
+
+Three folders ("estimated_coef", "evaluation_result", "simulation_data") need to create in advance to store the results, where
 
 "simulation_data" : Used to store the simulated data generated in each repeated experiment.
 
